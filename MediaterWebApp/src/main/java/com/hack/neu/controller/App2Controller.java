@@ -4,8 +4,8 @@
 package com.hack.neu.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hack.neu.variables.MessageHolder;
@@ -18,15 +18,15 @@ import com.hack.neu.variables.MessageHolder;
 @Controller
 public class App2Controller {
 
-	@RequestMapping("/app2_producer")
-	public void producer(@RequestParam("topic") String topic, @RequestParam("message") String message) {
+	@RequestMapping("/app2_producer/{topic}/{msg}")
+	public void producer(@PathVariable("topic") String topic, @PathVariable("msg") String message) {
 		
 		MessageHolder.updateMessage(topic, message);
 	}
 	
 	@ResponseBody
-	@RequestMapping("/app2_consumer")
-	public String consumer(@RequestParam("topic") String topic){
+	@RequestMapping("/app2_consumer/{topic}")
+	public String consumer(@PathVariable("topic") String topic){
 		
 		return MessageHolder.getMessage(topic);
 	}
